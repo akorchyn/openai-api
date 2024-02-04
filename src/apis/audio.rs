@@ -19,6 +19,7 @@ pub struct AudioBody {
 	pub file: File,
 	/// ID of the model to use. Only whisper-1 is currently available.
 	pub model: String,
+	pub file_name: String,
 	/// An optional text to guide the model's style or continue a previous audio segment.
 	/// The prompt should match the audio language.
 	pub prompt: Option<String>,
@@ -88,7 +89,7 @@ impl AudioApi for OpenAI {
 			send_data.add_text("language", language);
 		}
 
-		send_data.add_stream("file", audio_body.file, Some("mp3"), None);
+		send_data.add_stream("file", audio_body.file, Some(&audio_body.filename), None);
 
 		let res = self.post_multipart(AUDIO_TRANSLATIONS_CREATE, send_data)?;
 		let audio: Audio = serde_json::from_value(res.clone()).unwrap();
