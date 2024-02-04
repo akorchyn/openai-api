@@ -19,7 +19,7 @@ pub struct AudioBody {
 	pub file: File,
 	/// ID of the model to use. Only whisper-1 is currently available.
 	pub model: String,
-	pub file_name: String,
+	pub filename: String,
 	/// An optional text to guide the model's style or continue a previous audio segment.
 	/// The prompt should match the audio language.
 	pub prompt: Option<String>,
