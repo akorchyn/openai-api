@@ -65,7 +65,7 @@ impl AudioApi for OpenAI {
 			send_data.add_text("language", language);
 		}
 
-		send_data.add_stream("file", audio_body.file, Some("mp3"), None);
+		send_data.add_stream("file", audio_body.file, Some(&audio_body.filename), None);
 
 		let res = self.post_multipart(AUDIO_TRANSCRIPTION_CREATE, send_data)?;
 		let audio: Audio = serde_json::from_value(res.clone()).unwrap();
